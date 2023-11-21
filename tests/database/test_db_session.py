@@ -2,11 +2,12 @@ import uuid
 from datetime import datetime
 
 from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 from src.models.record import Record
 
 
-def test_db_fixture_session(session):
+def test_db_fixture_session(session: Session):
     new_record = Record(
         id=uuid.uuid4(),
         author_name='author',
@@ -24,6 +25,4 @@ def test_db_fixture_session(session):
     record = session.scalar(
         select(Record).where(Record.author_name == 'author')
     )
-    breakpoint()
-
     assert record

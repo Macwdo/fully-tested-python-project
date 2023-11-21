@@ -19,3 +19,13 @@ class Record(Base):
     content: Mapped[str]
     created_at: Mapped[datetime]
     updated_at: Mapped[datetime]
+
+    def __repr__(self) -> str:
+        return (
+            f'Record(id={str(self.id)[:6]}..., author_name={self.author_name})'
+        )
+
+    def str(self) -> str:
+        return (
+            f'Record(id={str(self.id)[:6]}..., author_name={self.author_name})'
+        )
