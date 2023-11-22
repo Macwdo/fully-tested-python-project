@@ -1,12 +1,9 @@
 from pydantic import BaseModel, EmailStr
 
-from src.dtos.records.origin_enum import OriginEnum
-
 
 class RecordRequest(BaseModel):
-    author_name: str
-    author_email: EmailStr
+    sender_id: int
     sender_email: EmailStr
-    origin: OriginEnum
+    receiver_email: EmailStr
     success: bool
     content: str

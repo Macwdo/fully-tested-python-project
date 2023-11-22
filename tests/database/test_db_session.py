@@ -10,10 +10,9 @@ from src.models.record import Record
 def test_db_fixture_session(session: Session):
     new_record = Record(
         id=uuid.uuid4(),
-        author_name='author',
-        author_email='author@email.co',
-        sender_email='sender@email.co',
-        origin='Internal',
+        sender_id=1,
+        sender_email='author@email.co',
+        receiver_email='sender@email.co',
         success=False,
         content='content',
         created_at=datetime.now(),
@@ -22,7 +21,5 @@ def test_db_fixture_session(session: Session):
     session.add(new_record)
     session.commit()
 
-    record = session.scalar(
-        select(Record).where(Record.author_name == 'author')
-    )
+    record = session.scalar(select(Record).where(Record.sender_id == 1))
     assert record

@@ -1,31 +1,28 @@
 from datetime import datetime
-from uuid import UUID
+from uuid import UUID, uuid4
 
+from sqlalchemy import Column, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
 
 from src.database.base import Base
-from src.dtos.records.origin_enum import OriginEnum
 
 
 class Record(Base):
     __tablename__ = 'records'
 
-    id: Mapped[UUID] = mapped_column(primary_key=True)
-    author_name: Mapped[str]
-    author_email: Mapped[str]
+    id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid4)
+    sender_id: Mapped[int]
     sender_email: Mapped[str]
-    origin: Mapped[OriginEnum]
+    receiver_email: Mapped[str]
     success: Mapped[bool]
     content: Mapped[str]
-    created_at: Mapped[datetime]
-    updated_at: Mapped[datetime]
+    created_at = Column(DateTime(timezone=True), default=datetime.now)
+    updated_at = Column(
+        DateTime(timezone=True), default=datetime.now, onupdate=datetime.now
+    )
 
     def __repr__(self) -> str:
-        return (
-            f'Record(id={str(self.id)[:6]}..., author_name={self.author_name})'
-        )
+        return f'Record(id={str(self.id)[:6]}..., sender_email={self.sender_email})'
 
     def str(self) -> str:
-        return (
-            f'Record(id={str(self.id)[:6]}..., author_name={self.author_name})'
-        )
+        return f'Record(id={str(self.id)[:6]}..., sender_email={self.sender_email})'

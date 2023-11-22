@@ -1,1 +1,1 @@
-from src.models.record import Record
+from src.models.record import Record  # noqa: F401

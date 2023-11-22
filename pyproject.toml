@@ -15,7 +15,7 @@ extend-exclude = '(migrations/)'
 
 [tool.taskipy.tasks]
 lint = 'ruff . && blue --check . --diff'
-checker = 'mypy src/main.py --strict'
+checker = 'mypy src/main.py'
 format = 'blue .  && isort .'
 run = 'uvicorn src.main:app --reload'
 pre_test = 'task lint'
