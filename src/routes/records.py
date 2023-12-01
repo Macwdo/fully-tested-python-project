@@ -1,5 +1,3 @@
-from uuid import UUID
-
 from fastapi import APIRouter, Depends, status
 from fastapi.exceptions import HTTPException
 from sqlalchemy import select
@@ -7,7 +5,6 @@ from sqlalchemy.orm import Session
 
 from src.database.utils import get_session
 from src.models.record import Record
-from src.schemas.base_response import BaseResponse
 from src.schemas.records import (
     RecordListResponse,
     RecordRequest,
@@ -50,7 +47,7 @@ def read_records(
 
 
 @router.get('/{id}', response_model=RecordResponse)
-def read_record(id: UUID, session: Session = Depends(get_session)) -> Record:
+def read_record(id: int, session: Session = Depends(get_session)) -> Record:
     record = session.scalar(select(Record).where(Record.id == id))
     if record:
         return record
@@ -75,13 +72,12 @@ def save_record(
 
 
 @router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
-def delete_record(
-    id: UUID, session: Session = Depends(get_session)
-) -> None:
+def delete_record(id: int, session: Session = Depends(get_session)) -> None:
     record = session.scalar(select(Record).where(Record.id == id))
     if record:
         session.delete(record)
         session.commit()
+        return
 
     raise HTTPException(
         status.HTTP_404_NOT_FOUND,

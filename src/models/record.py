@@ -1,5 +1,4 @@
 from datetime import datetime
-from uuid import UUID, uuid4
 
 from sqlalchemy import Column, DateTime
 from sqlalchemy.orm import Mapped, mapped_column
@@ -10,7 +9,7 @@ from src.database.base import Base
 class Record(Base):
     __tablename__ = 'records'
 
-    id: Mapped[UUID] = mapped_column(primary_key=True, default=uuid4)
+    id: Mapped[int] = mapped_column(primary_key=True)
     sender_id: Mapped[int]
     sender_email: Mapped[str]
     receiver_email: Mapped[str]
