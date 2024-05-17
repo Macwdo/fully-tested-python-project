@@ -9,8 +9,7 @@ so i want to test everything and use each test type as
  - Functional Tests
  - E2E Tests
 
-### The goal of this API is just for study, so this doesn't need to make any sense for you.
-
+API just for study, so the api goal doesnt matter
 
 
 
